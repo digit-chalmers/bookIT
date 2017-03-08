@@ -1,5 +1,7 @@
 # bookIT
 
+[![Join the chat at https://gitter.im/cthit/bookIT](https://badges.gitter.im/cthit/bookIT.svg)](https://gitter.im/cthit/bookIT?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Bokningssystem för Chalmers IT  
 *Byggt i Ruby on Rails av Ndushi*
 
