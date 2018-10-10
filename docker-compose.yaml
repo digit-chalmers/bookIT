@@ -16,6 +16,9 @@ services:
       dockerfile: dev.Dockerfile
     ports:
       - "3000:3000"
+    environment:
+      - OAUTH_ID=xxx
+      - OAUTH_SECRET=xxx
     depends_on:
       - db
 volumes:
