@@ -48,7 +48,7 @@ gem 'poltergeist'
 # logical deletes
 gem 'paranoia'
 
-gem 'omniauth-oauth2', '~> 1.0.0'
+gem 'omniauth-oauth2', '~> 1.3.1'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
