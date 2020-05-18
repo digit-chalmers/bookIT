@@ -44,7 +44,6 @@ gem 'cancancan', '~> 2.0' # user authorization
 # send party reports
 gem 'capybara'
 gem 'poltergeist'
-gem 'phantomjs', :require => 'phantomjs/poltergeist'
 
 # logical deletes
 gem 'paranoia'
