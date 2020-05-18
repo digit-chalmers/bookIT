@@ -39,9 +39,7 @@ RUN apt-get clean
 #Upload source
 COPY . /app
 RUN useradd ruby
-RUN mkdir /home/ruby
 RUN chown -R ruby /app
-RUN chown -R ruby /home/ruby
 USER ruby
 
 # Database defaults
