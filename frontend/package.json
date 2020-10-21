@@ -3,8 +3,11 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
-        "@cthit/react-digit-components": "1.0.0-rc.34",
+        "@cthit/react-digit-components": "1.0.3-beta.12",
         "@date-io/date-fns": "1.3.8",
+        "@fullcalendar/daygrid": "5.3.0",
+        "@fullcalendar/react": "5.3.0",
+        "@fullcalendar/timegrid": "^5.3.0",
         "@material-ui/icons": "4.5.1",
         "@testing-library/jest-dom": "^4.2.4",
         "@testing-library/react": "^9.3.2",
@@ -18,11 +21,13 @@
         "react-redux": "^7.1.0",
         "react-router-dom": "^5.1.2",
         "styled-components": "^4.3.2",
-        "yup": "0.27.0"
+        "yup": "0.27.0",
+        "moment": "2.29.0"
     },
     "devDependencies": {
+        "eslint": "^6.6.0",
         "prettier": "1.19.1",
-        "react-scripts": "^3.4.0"
+        "react-scripts": "^3.4.3"
     },
     "proxy": "http://backend:4000",
     "scripts": {

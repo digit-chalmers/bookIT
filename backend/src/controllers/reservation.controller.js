@@ -1,38 +1,45 @@
-const uuid = require("uuid/v4");
-const yup = require("yup");
-const { deleteRoom } = require("../db/room.db");
-const { editRoom } = require("../db/room.db");
-const { getRoom } = require("../db/room.db");
-const { getRooms } = require("../db/room.db");
-const { addRoom } = require("../db/room.db");
-const { put, del, post, get, to, isUUID } = require("../utils");
-
-const reservationSchema = yup.object().shape({
-    title: yup.string().required(),
-    description: yup.string().required(),
-    begin_date: yup.string().required(),
-    end_date: yup.string().required(),
-});
+const {
+    createReservation,
+    getReservations,
+    validateTime,
+} = require("../services/reservation.service");
+const { to } = require("../utils");
+const { getMe } = require("../utils/gamma");
 
 const handleAddReservation = async (req, res) => {
-    const id = uuid();
-
-    const schemaErrors = await validateSchema(reservationSchema, req.body);
-
-    if (schemaErrors != null) {
-        res.status(422).send(schemaErrors);
-        return;
-    }
-
-    const [err] = await to(addRoom(id, { ...req.body }));
+    const [, me] = await to(getMe(req.session.token));
+    const [err, id] = await createReservation(me.data, req.body);
 
     if (err) {
-        res.sendStatus(500);
+        res.status(400).send(err.message);
     } else {
         res.status(201).send({ id });
     }
 };
 
-const handleGetReservations = async (req, res) => {};
+const handleGetReservations = async (req, res) => {
+    const [err, reservations] = await getReservations();
 
-module.exports = {};
+    if (err) {
+        res.sendStatus(500);
+        console.log(err);
+    } else {
+        res.status(200).send(reservations);
+    }
+};
+
+const handleCheckValidTime = async (req, res) => {
+    const err = await validateTime(
+        req.body.begin_date,
+        req.body.end_date,
+        req.body.room
+    );
+
+    res.status(200).send(err === null);
+};
+
+module.exports = {
+    handleGetReservations,
+    handleAddReservation,
+    handleCheckValidTime,
+};

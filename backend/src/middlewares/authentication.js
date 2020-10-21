@@ -4,9 +4,9 @@ const { getGammaUri, postGammaToken } = require("../utils/gamma");
 
 const getAuthenticationMiddleware = () => {
     return async (req, res, next) => {
-        //user signed in, continue...
-        if (req.session.uid) {
-            console.log("yay signed in: " + req.session.nick);
+        //If user signed in, continue...
+        if (req.session.cid) {
+            console.log("yay signed in: " + req.session.cid);
             next();
         } else {
             //If user is trying to create session
@@ -24,17 +24,17 @@ const getAuthenticationMiddleware = () => {
                         );
                         console.log(err.response);
                     } else {
-                        res.status(500);
+                        res.status(500).end();
                         console.log(err);
                     }
                 } else {
                     const { access_token, expires_in } = response.data;
-                    //Todo set the maxAge to something that expires_in.
-                    //req.session.cookie.maxAge = expires_in;
-                    payload = jwt.decode(access_token);
-                    req.session.uid = payload.uid;
-                    req.session.cid = payload.user_name;
-                    req.session.nick = payload.nick;
+                    req.session.cookie.maxAge = expires_in;
+
+                    const { user_name, authorities } = jwt.decode(access_token);
+                    req.session.cid = user_name;
+                    req.session.authorities = authorities;
+                    req.session.token = access_token;
                     req.session.save(err => console.log(err));
                     res.status(200).send("session created");
                 }

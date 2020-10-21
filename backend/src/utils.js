@@ -24,14 +24,14 @@ const initExpress = (port = 4000) => {
 
 //Add migration
 //https://github.com/db-migrate/pg
-const initDB = (host = "db", port = 5432) => {
+const initDB = () => {
     const { Pool } = pg;
     pool = new Pool({
-        user: "postgres",
-        database: "bookit",
-        password: "example",
-        host: host,
-        port: port,
+        user: process.env.DB_USER,
+        database: process.env.DB_NAME,
+        password: process.env.DB_PASS,
+        host: process.env.DB_HOST,
+        port: Number(process.env.DB_PORT),
     });
 };
 
@@ -47,22 +47,6 @@ const query = (sql, values, convertResult) =>
             }
         });
     });
-
-const get = (url, handler) => {
-    app.get("/api" + url, handler);
-};
-
-const post = (url, handler) => {
-    app.post("/api" + url, handler);
-};
-
-const put = (url, handler) => {
-    app.put("/api" + url, handler);
-};
-
-const del = (url, handler) => {
-    app.delete("/api" + url, handler);
-};
 
 const to = promise => {
     return promise
@@ -111,10 +95,6 @@ const validateSchema = async (schema, data) => {
 
 module.exports = {
     query,
-    get,
-    post,
-    put,
-    del,
     to,
     initExpress,
     initDB,
