@@ -17,7 +17,7 @@ class User
 	has_many :bookings
 
 	@@ADMIN_GROUPS = [:digit, :prit, :styrit, :superadmin]
-	@@FILTER = [:digit, :styrit, :prit, :nollkit, :sexit, :fanbarerit, :'8bit', :drawit, :armit, :hookit, :fritid, :snit, :flashit, :valberedningen, :laggit, :fikit, :dpo, :superadmin]
+	@@FILTER = [:digit, :styrit, :prit, :nollkit, :sexit, :fanbarerit, :'8bit', :drawit, :armit, :hookit, :fritid, :snit, :flashit, :valberedningen, :laggit, :fikit, :dpo, :superadmin, :equalit]
 
 	# This MUST be fixed to user cid, but using cid outright causes infinite recursion
 	def uid
@@ -57,7 +57,7 @@ class Symbol
 		case self
 			when :digit, :styrit, :sexit, :fritid, :snit
 				self.to_s.gsub /it/, 'IT'
-			when :drawit, :armit, :hookit, :flashit, :laggit, :fikit
+			when :drawit, :armit, :hookit, :flashit, :laggit, :fikit, :equalit
 				self.to_s.titleize.gsub /it/, 'IT'
 			when :'8bit'
 				'8-bIT'
